@@ -17,61 +17,6 @@ class App extends React.Component {
     setTimeout(() => this.setState(dummyStore), 600)
   }
 
-  // findFolder = (folders = [], folderId) => {
-  //   return folders.find(folder => folder.id === folderId)
-  // }
-
-  // findNote = (notes=[], noteId) => {
-  //   return notes.find(note => note.id === noteId)
-  // }
-
-  // getNotes = (notes=[], folder)
-
-  // navRoutes() {
-  //   const {folders, notes} = this.state
-  //   return (
-  //     <>
-  //       <Route
-  //         exact          
-  //         path='/'
-  //         render={props => (
-  //           <NoteListNav
-  //             folders={folders}
-  //             notes={notes}
-  //             {...props}
-  //           />
-  //         )}
-  //       />
-  //       <Route
-  //         exact          
-  //         path='/folder/:folderId'
-  //         render={props => (
-  //           <NoteListNav
-  //             folders={folders}
-  //             notes={notes}
-  //             {...props}
-  //           />          
-  //         )}
-  //       />
-  //       <Route 
-  //         path='.note/:noteId'
-  //         render={props => {
-  //           const {noteId} = props.match.params
-  //           const note = findNote(notes, noteId) || {}
-  //           const folder = findFolder(folder, note.folderId)
-  //           return <NotePageNav {...props} folder={folder} />
-  //         }}
-  //         />
-  //         <Route path='/add-folder' component={NotePageNav} />
-  //         <Route path='/add-note' component={NotePageNav} />
-  //     </>
-  //   )
-  // }
-
-  // mainRoutes() {
-
-  // }
-
   filterFolders(folderId) {
     console.log(folderId)
     const folder = folderId
