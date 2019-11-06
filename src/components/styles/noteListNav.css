@@ -1,0 +1,12 @@
+.NoteListNav_list {
+  list-style: none;
+}
+
+.active {
+  background-color: aqua;
+}
+
+a {
+  display: block;
+  /* width: 100%; */
+}
