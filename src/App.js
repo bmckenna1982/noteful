@@ -95,7 +95,11 @@ class App extends React.Component {
       folders: this.state.folders,
       notes: this.state.notes,
       deleteNote: this.deleteNote,
-      findFolder: this.findFolder
+      findFolder: this.findFolder,
+      findNote: this.findNote,
+      filterNotes: this.filterNotes,
+      filterFolders: this.filterFolders,
+
     }
     return (
       <div className='App'>
@@ -117,9 +121,12 @@ class App extends React.Component {
               <Route path='/add-note' component={NotePageNav}/> */}
             </nav>
             <main className='App_main'>              
-              <Route exact path='/' render={props => <NoteListMain {...props} notes={this.filterNotes()} />} />
-              <Route path='/folder/:folderId' render={props => <NoteListMain {...props} notes={this.filterNotes(props.match.params.folderId)} />} />
-              <Route path='/note/:noteId' render={props => <NotePageMain {...props} note={this.findNote(props.match.params.noteId)} />} />              
+              {/* <Route exact path='/' render={props => <NoteListMain {...props} notes={this.filterNotes()} />} /> */}
+              <Route exact path='/' component={NoteListMain} />
+              {/* <Route path='/folder/:folderId' render={props => <NoteListMain {...props} notes={this.filterNotes(props.match.params.folderId)} />} /> */}
+              <Route path='/folder/:folderId' component={NoteListMain}/>
+              {/* <Route path='/note/:noteId' render={props => <NotePageMain {...props} note={this.findNote(props.match.params.noteId)} />} />               */}
+              <Route path='/note/:noteId' component={NotePageMain}/>
             </main>
           </div>
         </NotefulContext.Provider>

@@ -1,5 +1,6 @@
 import React from 'react'
 import Note from './note'
+import NotefulContext from '../NotefulContext'
 import './styles/noteListMain.css'
 
 class NoteListMain extends React.Component {
@@ -10,12 +11,16 @@ class NoteListMain extends React.Component {
     notes: []
   }
   
+  static contextType = NotefulContext
+
   render() {
-    console.log(this.props.notes)
+    console.log(this.context)
+    const filteredNotes = this.context.filterNotes(this.props.match.params.folderId)
     return (
     <section className='NoteListMain'>
       <ul className='NoteListMain_list'>        
-        {this.props.notes.map(note => (
+        {/* {this.context.notes.map(note => ( */}
+          {filteredNotes.map(note => (
           <li key={note.id}>
             <Note note={note} />           
           </li>

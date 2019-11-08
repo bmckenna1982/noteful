@@ -1,14 +1,18 @@
 import React from 'react'
 import Note from './note'
+import NotefulContext from '../NotefulContext'
 
 class NotePageMain extends React.Component {
+  static contextType = NotefulContext
+  
   render() {
-    console.log(this.props.note)
+    const selectedNote = this.context.findNote(this.props.match.params.noteId)
+    console.log(selectedNote)
     return (
       <section className='NotePageMain'>
-        <Note note={this.props.note}/>
+        <Note note={selectedNote}/>
         <div className='NotePageMain_content'>
-          {this.props.note.content.split(/\n \r|\n/).map((para, i) => 
+          {selectedNote.content.split(/\n \r|\n/).map((para, i) => 
             <p key={i}>{para}</p>
           )}
         </div>
