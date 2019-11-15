@@ -1,20 +1,24 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import Note from './note'
 import NotefulContext from '../NotefulContext'
 import './styles/noteListMain.css'
 
 class NoteListMain extends React.Component {
-  constructor(props) {
-      super(props)
-  }
+
   static defaultProps = {
-    notes: []
+    notes: [],
+    match: {
+      params: {
+        // folderId: 'test_folder'
+      }
+    }
   }
   
+
   static contextType = NotefulContext
 
-  render() {
-    console.log(this.context)
+  render() {    
     const filteredNotes = this.context.filterNotes(this.props.match.params.folderId)
     return (
     <section className='NoteListMain'>
@@ -26,7 +30,7 @@ class NoteListMain extends React.Component {
           </li>
         ))}
       </ul>
-      <button className='add_note'>Add note</button>
+      <Link className='add_note_link' to={'/addNote'}>Add note</Link>
     </section>
     )
   }

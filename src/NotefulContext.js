@@ -6,8 +6,10 @@ const NotefulContext = React.createContext({
   filterFolders: () => {},
   findFolder: () => {},
   filterNotes: () => {},
-  findNote: () => { },
-  deleteNote: () => { },
+  findNote: () => {},
+  deleteNote: () => {},
+  addFolder: () => {},
+  addNote: () => {}
 
 })
 

@@ -4,16 +4,22 @@ import NoteListNav from './components/noteListNav'
 import NotePageNav from './components/notePageNav'
 import NoteListMain from './components/noteListMain'
 import NotePageMain from './components/notePageMain'
-import NotefulContext from './NotefulContext'
+import AddFolder from './components/addFolder'
+import AddNote from './components/addNote'
 
-import dummyStore from './data/dummy-store'
+import NotefulContext from './NotefulContext'
+import NoteListError from './components/noteListError'
+import NavError from './components/navError'
+import NoteError from './components/noteError'
+
 import './App.css'
 
 
 class App extends React.Component {
   state = {
     folders: [],
-    notes: []
+    notes: [],
+    error: null
   }
 
   componentDidMount() {
@@ -28,12 +34,15 @@ class App extends React.Component {
     fetch(url)
     .then(response => {
       if (!response.ok) {
+        console.log(response)
         throw new Error(response.status)
       }
       return response.json()
     })
     .then(responseJson => this.setState({ folders: responseJson }))
-    .catch(error => console.error(error))
+    .catch(error => this.setState({
+      error: error
+    }))
   }
 
   getNotes() {
@@ -46,48 +55,55 @@ class App extends React.Component {
       return response.json()
     })
     .then(responseJson => this.setState({ notes: responseJson }))
-    .catch(error => console.error(error.message))
+    .catch(error => this.setState({
+      error: error
+    }))
   }
 
-  filterFolders = folderId => {
-    console.log(folderId)
+  filterFolders = folderId => {    
     const folder = folderId
       ? this.state.folders.filter(folder => folder.folderId === folderId)
-      : this.state.folders
-    console.log(folder)
+      : this.state.folders    
     return folder
   }
 
-  filterNotes = (folderId) => {
-    console.log(folderId)
+  filterNotes = (folderId) => {   
     const folder = folderId
       ? this.state.notes.filter(note => note.folderId === folderId)
-      : this.state.notes
-    console.log(folder)
+      : this.state.notes    
     return folder
   }
 
-  findNote = noteId => {
-    console.log(noteId)
-    console.log(this.state.notes)
-    const note = this.state.notes.filter(note => note.id === noteId)[0]
+  findNote = noteId => {    
+    // const note = this.state.notes.filter(note => note.id === noteId)[0]
+    const note = this.state.notes.find(note => note.id === noteId)
     return note
   }
 
   findFolder = folderId => {
-    console.log(folderId)
-    console.log(this.context.folders)
-    const folder = this.state.folders.filter(folder => folder.id === folderId)[0]
-    console.log(folder)
+    const folder = this.state.folders.find(folder => folder.id === folderId)    
     return folder
   }
 
-  deleteNote = noteId => {
-    console.log(noteId)
+  deleteNote = noteId => {    
     const newNotes = this.state.notes.filter(note => note.id !== noteId)
     this.setState({
       notes: newNotes
     })    
+  }
+
+  addFolder = folder => {    
+    // const folderId = `${Math.random().toString(36).substr(2, 8)}-${Math.random().toString(36).substr(2, 4)}-${Math.random().toString(36).substr(2, 4)}-${Math.random().toString(36).substr(2, 4)}-${Math.random().toString(36).substr(2, 12)}`      
+    // const newFolders = [...this.state.folders, folder]
+    this.setState({
+      folders: [...this.state.folders, folder]
+    })
+  }
+
+  addNote = note => {
+    this.setState({
+      notes: [...this.state.notes, note]
+    })
   }
 
   render() {
@@ -99,15 +115,22 @@ class App extends React.Component {
       findNote: this.findNote,
       filterNotes: this.filterNotes,
       filterFolders: this.filterFolders,
-
+      addFolder: this.addFolder,
+      addNote: this.addNote
     }
+    console.log(this.state.error)
+    const error = this.state.error
     return (
       <div className='App'>
         <header className='App_header'>
           <h1>
             <Link to='/'>Noteful</Link>
           </h1>
+          <div className='App_error' role='alert'>
+          {error && <p>{error.message} Error fetching data</p>}
+        </div>
         </header>
+              
         <NotefulContext.Provider value={contextValue}>
           <div className='App_wrapper'>
             <nav className='App_nav'>
@@ -120,6 +143,7 @@ class App extends React.Component {
               {/* <Route path='/add-folder' component={NotePageNav}/>
               <Route path='/add-note' component={NotePageNav}/> */}
             </nav>
+            <NoteListError>  
             <main className='App_main'>              
               {/* <Route exact path='/' render={props => <NoteListMain {...props} notes={this.filterNotes()} />} /> */}
               <Route exact path='/' component={NoteListMain} />
@@ -127,9 +151,13 @@ class App extends React.Component {
               <Route path='/folder/:folderId' component={NoteListMain}/>
               {/* <Route path='/note/:noteId' render={props => <NotePageMain {...props} note={this.findNote(props.match.params.noteId)} />} />               */}
               <Route path='/note/:noteId' component={NotePageMain}/>
+              <Route exact path='/addFolder' component={AddFolder} />
+              <Route exact path='/addNote' component={AddNote} />
             </main>
-          </div>
+            </NoteListError>
+          </div>          
         </NotefulContext.Provider>
+        
       </div>
     )
   }

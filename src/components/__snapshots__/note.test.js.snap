@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Note component renders a .Note by default 1`] = `
+<div
+  className="Note"
+>
+  <h2
+    className="Note_title"
+  >
+    <Link
+      to={
+        Object {
+          "folderId": undefined,
+          "pathname": "/note/",
+        }
+      }
+    />
+  </h2>
+  <div
+    className="Note_container"
+  >
+    <span
+      className="Note_container__date"
+    >
+      Date modified on 
+    </span>
+    <button
+      className="Note_container__delete"
+      onClick={[Function]}
+    >
+      Delete Note
+    </button>
+  </div>
+</div>
+`;
+
+exports[`Note component renders the Note given props 1`] = `
+<div
+  className="Note"
+>
+  <h2
+    className="Note_title"
+  >
+    <Link
+      to={
+        Object {
+          "folderId": undefined,
+          "pathname": "/note/",
+        }
+      }
+    />
+  </h2>
+  <div
+    className="Note_container"
+  >
+    <span
+      className="Note_container__date"
+    >
+      Date modified on 
+    </span>
+    <button
+      className="Note_container__delete"
+      onClick={[Function]}
+    >
+      Delete Note
+    </button>
+  </div>
+</div>
+`;

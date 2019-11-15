@@ -10,3 +10,18 @@ a {
   display: block;
   /* width: 100%; */
 }
+
+.NoteListNav_list {
+  padding: 0;
+}
+
+.NoteListNav_list li {
+  border: 1px solid #333;
+  padding: 10px 0;
+}
+
+.Add_folder {
+  border: 1px solid #333;
+  margin: 0 10%;
+  padding: 5px 0;
+}

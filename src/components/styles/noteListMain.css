@@ -1,7 +1,20 @@
+.NoteListMain {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+}
+
 .NoteListMain_list {
-  list-style: none;
+  padding: 0;
+  list-style: none;  
 }
 
 h2 {
   text-align: center;
+}
+
+.add_note_link {
+  max-width: 200px;
+  padding: 10px;
+  border: 1px solid #333;
 }

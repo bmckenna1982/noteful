@@ -1,11 +1,10 @@
 import React from 'react'
 import NotefulContext from '../NotefulContext'
-import { Link } from 'react-router-dom'
+
 
 class NotePageNav extends React.Component {
   static contextType = NotefulContext
-  render() {
-    console.log(this.context)
+  render() {    
     const folder = this.context.findFolder(this.props.history.location.folderId)
     return (
       <div className='NotePageNav'>

@@ -6,6 +6,11 @@ import './styles/noteListNav.css'
 class NoteListNav extends React.Component {
   static contextType = NotefulContext
 
+  handleAdd = e => {
+    e.preventDefault()
+
+  }
+
   render() {
     return (
       <div className='NoteListNav'>
@@ -18,7 +23,7 @@ class NoteListNav extends React.Component {
             </li>
           )}
         </ul>        
-        <button className="Add_folder">Add folder</button>
+        <Link className="Add_folder" to={'/addFolder'}>Add folder</Link>
       </div>  
     )
   }

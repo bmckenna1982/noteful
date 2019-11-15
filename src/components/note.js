@@ -1,6 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
 import NotefulContext from '../NotefulContext'
+import './styles/note.css'
 
 function deleteNoteRequest(noteId, callback) {
   const url = `http://localhost:9090/notes/${noteId}`
@@ -22,11 +24,18 @@ function deleteNoteRequest(noteId, callback) {
 }
 
 class Note extends React.Component {
+  static defaultProps = {
+    note: {
+      id: '',
+      name: '',
+      modified: ''
+    }
+  }
   static contextType = NotefulContext
-  render() {    
+  render() {
     return (
-      <div className='note'>
-        <h2 className='note_title'>
+      <div className='Note'>
+        <h2 className='Note_title'>
           <Link to={{
             pathname: `/note/${this.props.note.id}`,
             folderId: this.props.note.folderId
@@ -34,12 +43,27 @@ class Note extends React.Component {
             {this.props.note.name}
           </Link>
         </h2>
-        <div className=''>
-          <span>{this.props.note.modified.slice(0, this.props.note.modified.indexOf("T"))}</span>
+        <div className='Note_container'>
+          <span className='Note_container__date'>Date modified on {this.props.note.modified.slice(0, this.props.note.modified.indexOf("T"))}</span>
+          <button className='Note_container__delete' onClick={() => { deleteNoteRequest(this.props.note.id, this.context.deleteNote) }}>Delete Note</button>
         </div>
-        <button className='delete_note' onClick={() => { deleteNoteRequest(this.props.note.id, this.context.deleteNote) }}>Delete Note</button>
       </div>
     )
+  }
+}
+
+Note.propTypes = {
+  note: (props, propName, componentName) => {
+    const prop = props[propName]
+
+    if(!prop) {
+      return new Error(`${propName} is required in ${componentName}. Validation Failed`)
+    }
+
+    if (typeof prop != 'object') {
+      return new Error(`Invalid prop, ${propName} ixpected to be an object in ${componentName}. ${typeof prop} found.`)
+    }
+    
   }
 }
 
