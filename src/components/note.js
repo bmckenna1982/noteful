@@ -11,15 +11,21 @@ function deleteNoteRequest(noteId, callback) {
     headers: {
       'content-type': 'application/json'
     }
-  })
+  })    
     .then(response => {
       if (!response.ok) {
-        throw new Error(response.status)
+        return response.json().then(error => {
+          throw error
+        })
       }
       return response.json()
-        .then(responseJson => callback(noteId))
-        .then(() => this.props.history.push('/'))
-        .catch(error => console.error(error))
+    })
+    .then((responseJson) => { 
+      callback(noteId)
+    })
+    .then(() => this.props.history.push('/'))
+    .catch(error => {
+      console.error(error)
     })
 }
 
@@ -31,7 +37,7 @@ class Note extends React.Component {
       modified_date: ''
     }
   }
-  
+
   static contextType = NotefulContext
   render() {
     console.log('this.props.note', this.props.note)
@@ -39,7 +45,7 @@ class Note extends React.Component {
       <div className='Note'>
         <h2 className='Note_title'>
           <Link to={{
-            pathname: `/note/${this.props.note.id}`,
+            pathname: `/api/notes/${this.props.note.id}`,
             folderId: this.props.note.folderId
           }}>
             {this.props.note.note_name}
@@ -58,14 +64,14 @@ Note.propTypes = {
   note: (props, propName, componentName) => {
     const prop = props[propName]
 
-    if(!prop) {
+    if (!prop) {
       return new Error(`${propName} is required in ${componentName}. Validation Failed`)
     }
 
     if (typeof prop != 'object') {
       return new Error(`Invalid prop, ${propName} ixpected to be an object in ${componentName}. ${typeof prop} found.`)
     }
-    
+
   }
 }
 

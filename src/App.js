@@ -87,8 +87,8 @@ class App extends React.Component {
     return folder
   }
 
-  deleteNote = noteId => {
-    const newNotes = this.state.notes.filter(note => note.id !== noteId)
+  deleteNote = noteId => {    
+    const newNotes = this.state.notes.filter(note => note.id !== noteId)    
     this.setState({
       notes: newNotes
     })
@@ -140,9 +140,9 @@ class App extends React.Component {
                 {/* <Route exact path='/' render={props => <NoteListNav {...props} folders={this.filterFolders()} />} /> */}
                 <Route exact path='/' component={NoteListNav} />
                 {/* <Route path='/folder/:folderId' render={props => <NoteListNav {...props} folders={this.filterFolders()} />} /> */}
-                <Route path='/folder/:folderId' component={NoteListNav} />
+                <Route path='/api/folders/:folderId' component={NoteListNav} />
                 {/* <Route path='/note/:noteId' render={props => <NotePageNav {...props} folder={this.findFolder(props.history.location.folderId)} />} /> */}
-                <Route path='/note/:noteId' component={NotePageNav} />
+                <Route path='/api/notes/:noteId' component={NotePageNav} />
                 {/* <Route path='/add-folder' component={NotePageNav}/>
               <Route path='/add-note' component={NotePageNav}/> */}
               </nav>
@@ -152,11 +152,11 @@ class App extends React.Component {
                 {/* <Route exact path='/' render={props => <NoteListMain {...props} notes={this.filterNotes()} />} /> */}
                 <Route exact path='/' component={NoteListMain} />
                 {/* <Route path='/folder/:folderId' render={props => <NoteListMain {...props} notes={this.filterNotes(props.match.params.folderId)} />} /> */}
-                <Route path='/folder/:folderId' component={NoteListMain} />
+                <Route path='/api/folders/:folderId' component={NoteListMain} />
                 {/* <Route path='/note/:noteId' render={props => <NotePageMain {...props} note={this.findNote(props.match.params.noteId)} />} />               */}
-                <Route path='/note/:noteId' component={NotePageMain} />
-                <Route exact path='/addFolder' component={AddFolder} />
-                <Route exact path='/addNote' component={AddNote} />
+                <Route path='/api/notes/:noteId' component={NotePageMain} />
+                <Route exact path='/api/addFolder' component={AddFolder} />
+                <Route exact path='/api/addNote' component={AddNote} />
               </main>
             </NoteListError>
           </div>

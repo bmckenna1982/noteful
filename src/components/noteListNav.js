@@ -17,13 +17,13 @@ class NoteListNav extends React.Component {
         <ul className='NoteListNav_list'>
           {this.context.folders.map(folder => 
             <li key={folder.id}>
-              <NavLink className='NoteListNav_folder-link' to={`/folder/${folder.id}`}>
+              <NavLink className='NoteListNav_folder-link' to={`/api/folders/${folder.id}`}>
               {folder.folder_name}
               </NavLink>
             </li>
           )}
         </ul>        
-        <Link className="Add_folder" to={'/addFolder'}>Add folder</Link>
+        <Link className="Add_folder" to={'/api/addFolder'}>Add folder</Link>
       </div>  
     )
   }

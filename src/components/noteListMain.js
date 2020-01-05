@@ -30,7 +30,7 @@ class NoteListMain extends React.Component {
           </li>
         ))}
       </ul>
-      <Link className='add_note_link' to={'/addNote'}>Add note</Link>
+      <Link className='add_note_link' to={'/api/addNote'}>Add note</Link>
     </section>
     )
   }
