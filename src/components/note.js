@@ -5,7 +5,7 @@ import NotefulContext from '../NotefulContext'
 import './styles/note.css'
 
 function deleteNoteRequest(noteId, callback) {
-  const url = `http://localhost:9090/notes/${noteId}`
+  const url = `http://localhost:8000/api/notes/${noteId}`
   fetch(url, {
     method: 'DELETE',
     headers: {
@@ -27,12 +27,14 @@ class Note extends React.Component {
   static defaultProps = {
     note: {
       id: '',
-      name: '',
-      modified: ''
+      note_name: '',
+      modified_date: ''
     }
   }
+  
   static contextType = NotefulContext
   render() {
+    console.log('this.props.note', this.props.note)
     return (
       <div className='Note'>
         <h2 className='Note_title'>
@@ -40,11 +42,11 @@ class Note extends React.Component {
             pathname: `/note/${this.props.note.id}`,
             folderId: this.props.note.folderId
           }}>
-            {this.props.note.name}
+            {this.props.note.note_name}
           </Link>
         </h2>
         <div className='Note_container'>
-          <span className='Note_container__date'>Date modified on {this.props.note.modified.slice(0, this.props.note.modified.indexOf("T"))}</span>
+          <span className='Note_container__date'>Date modified on {this.props.note.modified_date.slice(0, this.props.note.modified_date.indexOf("T"))}</span>
           <button className='Note_container__delete' onClick={() => { deleteNoteRequest(this.props.note.id, this.context.deleteNote) }}>Delete Note</button>
         </div>
       </div>

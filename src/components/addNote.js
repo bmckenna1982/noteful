@@ -41,8 +41,10 @@ export default class AddNote extends React.Component {
   handleSubmit = e => {
     e.preventDefault()
     const note = e.target.noteName.value
-    const folderId = this.context.folders.find(folder => folder.name === e.target.folderName.value).id
+    const folderId = this.context.folders.find(folder => folder.folder_name === e.target.folderName.value).id
     const content = e.target.noteContent.value
+    console.log('folderId', folderId)
+    console.log('content', content)
     const date = new Date()
     let dateTime = date.getFullYear() + '-' +
       (date.getMonth() + 1) + '-' +
@@ -51,14 +53,13 @@ export default class AddNote extends React.Component {
       date.getMinutes() + ':' +
       date.getSeconds() + ':' +
       date.getMilliseconds() + 'Z'
-    const url = 'http://localhost:9090/notes'
+    const url = 'http://localhost:8000/api/notes'
 
     fetch(url, {
       method: 'POST',
       body: JSON.stringify({
-        name: note,
-        modified: dateTime,
-        folderId: folderId,
+        note_name: note,        
+        folder_id: folderId,
         content: content
 
       }),
@@ -113,7 +114,7 @@ export default class AddNote extends React.Component {
             <label htmlFor='folderName'>Select a folder: </label>
             <select name='folderName' id='folderName' required>
               {this.context.folders.map(folder => (
-                <option key={folder.name} value={folder.name}>{folder.name}</option>
+                <option key={folder.folder_name} value={folder.folder_name}>{folder.folder_name}</option>
               ))}
             </select>
             {' '}

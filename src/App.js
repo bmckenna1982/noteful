@@ -30,7 +30,7 @@ class App extends React.Component {
   }
 
   getFolders() {
-    const url = 'http://localhost:9090/folders'
+    const url = 'http://localhost:8000/api/folders'
     fetch(url)
       .then(response => {
         if (!response.ok) {
@@ -46,7 +46,7 @@ class App extends React.Component {
   }
 
   getNotes() {
-    const url = 'http://localhost:9090/notes'
+    const url = 'http://localhost:8000/api/notes'
     fetch(url)
       .then(response => {
         if (!response.ok) {
@@ -54,7 +54,7 @@ class App extends React.Component {
         }
         return response.json()
       })
-      .then(responseJson => this.setState({ notes: responseJson }))
+      .then(responseJson => this.setState({ notes: responseJson }))      
       .catch(error => this.setState({
         error: error
       }))
@@ -68,15 +68,17 @@ class App extends React.Component {
   }
 
   filterNotes = (folderId) => {
+    console.log('this.state.notes', this.state.notes)
     const folder = folderId
-      ? this.state.notes.filter(note => note.folderId === folderId)
+      ? this.state.notes.filter(note => note.folder_id == folderId)
       : this.state.notes
+    console.log('folder', folder)
     return folder
   }
 
   findNote = noteId => {
-    // const note = this.state.notes.filter(note => note.id === noteId)[0]
-    const note = this.state.notes.find(note => note.id === noteId)
+    // const note = this.state.notes.filter(note => note.id === noteId)[0]    
+    const note = this.state.notes.find(note => note.id == noteId)    
     return note
   }
 
