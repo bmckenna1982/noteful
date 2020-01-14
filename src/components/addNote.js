@@ -1,6 +1,7 @@
 import React from 'react'
 import NotefulContext from '../NotefulContext'
 import ValidationError from './validationError'
+import config from '../config'
 
 export default class AddNote extends React.Component {
   constructor(props) {
@@ -53,7 +54,7 @@ export default class AddNote extends React.Component {
       date.getMinutes() + ':' +
       date.getSeconds() + ':' +
       date.getMilliseconds() + 'Z'
-    const url = 'http://localhost:8000/api/notes'
+    const url = `${config.API_ENDPOINT}/api/notes`
 
     fetch(url, {
       method: 'POST',

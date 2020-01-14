@@ -2,6 +2,7 @@ import React from 'react'
 import './styles/addFolder.css'
 import NotefulContext from '../NotefulContext'
 import ValidationError from '../components/validationError'
+import config from '../config'
 
 
 export default class AddFolder extends React.Component {
@@ -30,7 +31,7 @@ export default class AddFolder extends React.Component {
   handleSubmit = e => {
     e.preventDefault()
     const folder = e.target.folderName.value
-    const url = 'http://localhost:8000/api/folders'
+    const url = `${config.API_ENDPOINT}/api/folders`
 
     fetch(url, {
       method: 'POST',

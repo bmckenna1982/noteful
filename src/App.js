@@ -15,8 +15,6 @@ import NoteError from './components/noteError'
 
 import './App.css'
 
-const baseUrl = config.API_ENDPOINT
-
 class App extends React.Component {
   state = {
     folders: [],
@@ -32,8 +30,8 @@ class App extends React.Component {
   }
 
   getFolders() {
-    
-    fetch(baseUrl)
+    console.log('config.API_ENDPOINT', config.API_ENDPOINT)
+    fetch(`${config.API_ENDPOINT}/api/folders`)
       .then(response => {
         if (!response.ok) {
           console.log(response)
@@ -48,8 +46,8 @@ class App extends React.Component {
   }
 
   getNotes() {
-    const fetchUrl = `${baseUrl}/api/notes`
-    fetch(url)
+    const fetchUrl = `${config.API_ENDPOINT}/api/notes`
+    fetch(fetchUrl)
       .then(response => {
         if (!response.ok) {
           throw new Error(response.status)
