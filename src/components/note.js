@@ -67,8 +67,7 @@ class Note extends React.Component {
     })
   }
 
-  render() {
-    console.log('this.props.note', this.props.note)
+  render() {    
     return (
       <div className='Note'>
         <h2 className='Note_title'>
