@@ -48,8 +48,7 @@ export default class AddFolder extends React.Component {
         }
         return response.json()
       })
-      .then(responseJson => {
-        console.log(responseJson)
+      .then(responseJson => {        
         this.props.history.push('/')
         this.context.addFolder(responseJson)
       })
@@ -60,8 +59,7 @@ export default class AddFolder extends React.Component {
   }
 
   validateFolderName() {
-    const folderName = this.state.folderName.value.trim()
-    console.log(folderName)
+    const folderName = this.state.folderName.value.trim()    
     if (folderName.length === 0) {
       return 'Folder name is required'
     } else if (folderName.length < 3) {

@@ -43,9 +43,7 @@ export default class AddNote extends React.Component {
     e.preventDefault()
     const note = e.target.noteName.value
     const folderId = this.context.folders.find(folder => folder.folder_name === e.target.folderName.value).id
-    const content = e.target.noteContent.value
-    console.log('folderId', folderId)
-    console.log('content', content)
+    const content = e.target.noteContent.value    
     const date = new Date()
     let dateTime = date.getFullYear() + '-' +
       (date.getMonth() + 1) + '-' +
@@ -105,7 +103,7 @@ export default class AddNote extends React.Component {
   render() {
     const nameError = this.validateName()
     const textError = this.validateText()
-    console.log(nameError)
+    
     return (
       <div className="AddNote">
         <h2>Add a Note</h2>

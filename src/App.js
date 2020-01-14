@@ -29,12 +29,10 @@ class App extends React.Component {
     // setTimeout(() => this.setState(dummyStore), 600)
   }
 
-  getFolders() {
-    console.log('config.API_ENDPOINT', config.API_ENDPOINT)
+  getFolders() {    
     fetch(`${config.API_ENDPOINT}/api/folders`)
       .then(response => {
-        if (!response.ok) {
-          console.log(response)
+        if (!response.ok) {          
           throw new Error(response.status)
         }
         return response.json()
@@ -67,12 +65,11 @@ class App extends React.Component {
     return folder
   }
 
-  filterNotes = (folderId) => {
-    console.log('this.state.notes', this.state.notes)
+  filterNotes = (folderId) => {    
     const folder = folderId
       ? this.state.notes.filter(note => note.folder_id == folderId)
       : this.state.notes
-    console.log('folder', folder)
+    
     return folder
   }
 
@@ -120,7 +117,7 @@ class App extends React.Component {
       addFolder: this.addFolder,
       addNote: this.addNote
     }
-    console.log(this.state.error)
+    
     const error = this.state.error
     return (
       <div className='App'>

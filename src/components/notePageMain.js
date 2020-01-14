@@ -7,9 +7,8 @@ class NotePageMain extends React.Component {
   static contextType = NotefulContext
   
   render() {
-    console.log('this.props.match.params.noteId', this.props.match.params.noteId)
     const selectedNote = this.context.findNote(this.props.match.params.noteId)  
-    console.log('selectedNote', selectedNote)  
+    
     return (
       <section className='NotePageMain'>
         <Note note={selectedNote}/>

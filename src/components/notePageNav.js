@@ -4,8 +4,7 @@ import NotefulContext from '../NotefulContext'
 
 class NotePageNav extends React.Component {
   static contextType = NotefulContext
-  render() {    
-    console.log('this.props.history.location', this.props.history.location)
+  render() {
     const folder = this.props.history.location.folderId
       ? this.context.findFolder(this.props.history.location.folderId)
       : { folder_name: 'test'}
