@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "alias": "noteful",
+  "alias": "noteful-fullstack",
   "name": "noteful",
   "routes": [
       {
