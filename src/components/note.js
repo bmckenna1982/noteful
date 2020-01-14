@@ -1,11 +1,49 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import NotefulContext from '../NotefulContext'
+import config from '../config'
 import './styles/note.css'
 
-function deleteNoteRequest(noteId, callback) {
-  const url = `http://localhost:8000/api/notes/${noteId}`
+// function deleteNoteRequest(noteId, callback) {
+//   const url = `http://localhost:8000/api/notes/${noteId}`
+//   fetch(url, {
+//     method: 'DELETE',
+//     headers: {
+//       'content-type': 'application/json'
+//     }
+//   })    
+//     .then(response => {
+//       if (!response.ok) {
+//         return response.json().then(error => {
+//           throw error
+//         })
+//       }
+//       // return response.json()
+//     })
+//     .then(() => { 
+//       callback(noteId)
+//     })
+//     .then(() => this.props.history.push('/'))
+//     .catch(error => {
+//       console.error(error)
+//     })
+// }
+
+class Note extends React.Component {
+  static defaultProps = {
+    note: {
+      id: '',
+      note_name: '',
+      modified_date: ''
+    }
+  }
+
+  static contextType = NotefulContext
+
+  handleDelete = () => {
+    
+  const url = `${config.API_ENDPOINT}/${this.props.note.id}`
   fetch(url, {
     method: 'DELETE',
     headers: {
@@ -18,27 +56,17 @@ function deleteNoteRequest(noteId, callback) {
           throw error
         })
       }
-      return response.json()
+      // return response.json()
     })
-    .then((responseJson) => { 
-      callback(noteId)
+    .then(() => { 
+      this.context.deleteNote(this.props.note.id)
     })
     .then(() => this.props.history.push('/'))
     .catch(error => {
       console.error(error)
     })
-}
-
-class Note extends React.Component {
-  static defaultProps = {
-    note: {
-      id: '',
-      note_name: '',
-      modified_date: ''
-    }
   }
 
-  static contextType = NotefulContext
   render() {
     console.log('this.props.note', this.props.note)
     return (
@@ -53,7 +81,7 @@ class Note extends React.Component {
         </h2>
         <div className='Note_container'>
           <span className='Note_container__date'>Date modified on {this.props.note.modified_date.slice(0, this.props.note.modified_date.indexOf("T"))}</span>
-          <button className='Note_container__delete' onClick={() => { deleteNoteRequest(this.props.note.id, this.context.deleteNote) }}>Delete Note</button>
+          <button className='Note_container__delete' onClick={this.handleDelete}>Delete Note</button>
         </div>
       </div>
     )
@@ -75,4 +103,4 @@ Note.propTypes = {
   }
 }
 
-export default Note
+export default withRouter(Note)

@@ -6,6 +6,7 @@ import NoteListMain from './components/noteListMain'
 import NotePageMain from './components/notePageMain'
 import AddFolder from './components/addFolder'
 import AddNote from './components/addNote'
+import config from './config'
 
 import NotefulContext from './NotefulContext'
 import NoteListError from './components/noteListError'
@@ -14,6 +15,7 @@ import NoteError from './components/noteError'
 
 import './App.css'
 
+const baseUrl = config.API_ENDPOINT
 
 class App extends React.Component {
   state = {
@@ -30,8 +32,8 @@ class App extends React.Component {
   }
 
   getFolders() {
-    const url = 'http://localhost:8000/api/folders'
-    fetch(url)
+    
+    fetch(baseUrl)
       .then(response => {
         if (!response.ok) {
           console.log(response)
@@ -46,7 +48,7 @@ class App extends React.Component {
   }
 
   getNotes() {
-    const url = 'http://localhost:8000/api/notes'
+    const fetchUrl = `${baseUrl}/api/notes`
     fetch(url)
       .then(response => {
         if (!response.ok) {
