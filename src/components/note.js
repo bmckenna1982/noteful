@@ -43,7 +43,7 @@ class Note extends React.Component {
 
   handleDelete = () => {
     
-  const url = `${config.API_ENDPOINT}/${this.props.note.id}`
+  const url = `${config.API_ENDPOINT}/api/notes/${this.props.note.id}`
   fetch(url, {
     method: 'DELETE',
     headers: {
